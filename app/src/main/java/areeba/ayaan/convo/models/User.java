@@ -3,9 +3,13 @@ package areeba.ayaan.convo.models;
 import com.stfalcon.chatkit.commons.models.IUser;
 
 public class User implements IUser {
-    String id;
+    private String id;
     String name;
     String avatar;
+
+    public User() {
+
+    }
 
     public User(String id, String name, String avatar) {
         this.id = id;

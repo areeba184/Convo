@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "396109915395",
+    "project_id": "convo-98576",
+    "storage_bucket": "convo-98576.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396109915395:android:2e7e26947884ed699cb536",
+        "android_client_info": {
+          "package_name": "areeba.ayaan.convo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396109915395-sm2pjop6d7qd05kf37lbg0ct01dkhkci.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8ie9RIqlr-xeA6CDyX6BVWLbxVMyUMTk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396109915395-sm2pjop6d7qd05kf37lbg0ct01dkhkci.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

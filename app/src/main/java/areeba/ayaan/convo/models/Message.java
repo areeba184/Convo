@@ -15,6 +15,10 @@ public class Message implements IMessage {
         this.createdAt = createdAt;
     }
 
+    public Message() {
+
+    }
+
     String text;
     IUser user;
     Date createdAt;
