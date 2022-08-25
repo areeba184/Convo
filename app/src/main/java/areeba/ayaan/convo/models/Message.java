@@ -8,7 +8,7 @@ import java.util.Date;
 public class Message implements IMessage {
     String id;
 
-    public Message(String id, String text, IUser user, Date createdAt) {
+    public Message(String id, String text, User user, Date createdAt) {
         this.text = text;
         this.id = id;
         this.user = user;
@@ -20,7 +20,7 @@ public class Message implements IMessage {
     }
 
     String text;
-    IUser user;
+    User user;
     Date createdAt;
 
 

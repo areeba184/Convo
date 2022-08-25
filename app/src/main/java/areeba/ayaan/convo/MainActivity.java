@@ -36,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
     Map<String, Message> messages;
 
     Map<String, UserProfile> profiles;
+    Map<String, Conversation> conversations;
     UserProfile currentProfile;
+    Conversation currentConversation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        User userAyaan = new User("ayaan", "Ayaan Khan", "ayaanAvatar");
+        User userAyaan = new User("ayaan", "Ayaan Khan", "https://www.static-contents.youth4work.com/y4w/Images/Users/2452690.png?v=20180402161648");
 
-        conversation = new Conversation(userAyaan);
+        // conversation = new Conversation(userAyaan);
 
         MessagesListAdapter messagesListAdapter = new MessagesListAdapter("areeba", null);
         messagesList.setAdapter(messagesListAdapter);
@@ -84,18 +86,18 @@ public class MainActivity extends AppCompatActivity {
         messages.put("areeba", message2);*/
 
         myRef = database.getReference("Areeba");
+        DatabaseReference arAyConvoRef = myRef.child("areeba").child("conversations");
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        arAyConvoRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                GenericTypeIndicator<HashMap<String, UserProfile>> typeIndicator = new GenericTypeIndicator<HashMap<String, UserProfile>>() {};
-                profiles = dataSnapshot.getValue(typeIndicator);
-                if (profiles != null) {
-                    currentProfile = profiles.get("areeba");
-                    List<Conversation> conversations = currentProfile.getConversations();
-                    conversation = conversations.get(0);
+                GenericTypeIndicator<HashMap<String, Conversation>> typeIndicator = new GenericTypeIndicator<HashMap<String, Conversation>>() {};
+                conversations = dataSnapshot.getValue(typeIndicator);
+                if (conversations != null) {
+                    conversation = conversations.get("ayaan");
+                    messagesListAdapter.clear();
                     messagesListAdapter.addToEnd(conversation.getMessages(), true);
 
                 }
@@ -115,18 +117,40 @@ public class MainActivity extends AppCompatActivity {
         inputView.setInputListener(new MessageInput.InputListener() {
             @Override
             public boolean onSubmit(CharSequence input) {
-                if (profiles == null) {
+
+
+
+
+
+                Conversation conversation = new Conversation();
+                User userAreeba = new User("areeba", "Areeba Khan", "areebaAvatar");
+                Message message = new Message("123", "Hello there", userAyaan, Calendar.getInstance().getTime());
+                Message message2 = new Message("122", "Hello Ayaan", userAreeba, Calendar.getInstance().getTime());
+
+
+                conversation.addMessage(message);
+                conversation.addMessage(message2);
+                HashMap<String, Conversation> conversationHashMap = new HashMap<>();
+                conversationHashMap.put("ayaan", conversation);
+                arAyConvoRef.setValue(conversationHashMap);
+
+                /*if (profiles == null) {
                     profiles = new HashMap<>();
+                    currentConversation = new Conversation(userAyaan);
+                } else {
+                    if (currentConversation == null) {
+                        currentConversation = profiles.get("areeba").getConversations().get(0);
+                    }
                 }
-                Conversation conversation = new Conversation(userAyaan);
+
                 User user = new User("areeba", "areeba","areebaAvatar");
                 Message message = new Message("1", input.toString(), user, Calendar.getInstance().getTime());
-                conversation.addMessage(message);
-                currentProfile.addConversation(conversation);
+                currentConversation.addMessage(message);
+                currentProfile.addConversation(currentConversation);
                 messagesListAdapter.addToStart(message, true);
 
                 profiles.put("areeba", currentProfile);
-                myRef.setValue(profiles);
+                myRef.setValue(profiles);*/
 
                 return true;
             }

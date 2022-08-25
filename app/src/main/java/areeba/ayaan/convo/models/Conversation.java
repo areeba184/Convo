@@ -4,24 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Conversation {
-    User user;
     List<Message> messages;
 
-    public Conversation(User user) {
-        this.user = user;
-        messages = new ArrayList<>();
-    }
-
     public Conversation() {
-
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+        messages = new ArrayList<>();
     }
 
     public List<Message> getMessages() {
