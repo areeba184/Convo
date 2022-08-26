@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         // conversation = new Conversation(userAyaan);
 
-        MessagesListAdapter messagesListAdapter = new MessagesListAdapter("areeba", null);
+        MessagesListAdapter messagesListAdapter = new MessagesListAdapter(currentUser, null);
         messagesList.setAdapter(messagesListAdapter);
 
         currentProfile = new UserProfile("areeba", "Areeba Khan", "areebaAvatar");
