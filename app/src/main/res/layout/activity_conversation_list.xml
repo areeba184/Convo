@@ -6,9 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".ConversationListActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_chat_section"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        >
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="10"
+            android:hint="Enter Username"
+            android:inputType="textPersonName"
+            android:id="@+id/add_chat_username_editText"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:id="@+id/add_chat_button"
+            android:text="message"
+            android:layout_toRightOf="@id/add_chat_username_editText"/>
+
+    </LinearLayout>
+
     <com.stfalcon.chatkit.dialogs.DialogsList
         android:id="@+id/dialogsList"
         android:layout_width="match_parent"
+        android:layout_below="@id/add_chat_section"
         android:layout_height="match_parent"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/action_add_chat"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_add_attachment"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="40dp"/>
 
 </RelativeLayout>
