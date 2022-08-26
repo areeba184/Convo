@@ -1,5 +1,6 @@
 package areeba.ayaan.convo;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -38,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
     Map<String, UserProfile> profiles;
     Map<String, Conversation> conversations;
     UserProfile currentProfile;
-    Conversation currentConversation;
+    String currentUser, currentContact;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
         inputView = findViewById(R.id.message_input);
         messagesList = findViewById(R.id.messagesList);
         database = FirebaseDatabase.getInstance();
+
+        currentUser = getIntent().getStringExtra("currentUser");
+        currentContact = getIntent().getStringExtra("currentContact");
 
         messages = new HashMap<>();
         profiles = new HashMap<>();
@@ -85,10 +90,22 @@ public class MainActivity extends AppCompatActivity {
         messages.put("ayaan", message);
         messages.put("areeba", message2);*/
 
-        myRef = database.getReference("Areeba");
-        DatabaseReference arAyConvoRef = myRef.child("areeba").child("conversations");
+        myRef = database.getReference("Users");
+        DatabaseReference convoRef = myRef.child(currentUser).child("conversations");
+        DatabaseReference convoToRef = myRef.child(currentContact).child("conversations");
 
-        arAyConvoRef.addValueEventListener(new ValueEventListener() {
+        /*User user = new User("areeba", "Areeba Khan", null);
+        Message message = new Message("123", "hello", user, Calendar.getInstance().getTime());
+        conversation = new Conversation();
+        conversation.addMessage(message);
+        HashMap<String, Conversation> conversationHashMap = new HashMap<>();
+        HashMap<String, Conversation> conversationToHashMap = new HashMap<>();
+        conversationHashMap.put(currentContact, conversation);
+        conversationToHashMap.put(currentUser, conversation);
+        convoRef.setValue(conversationHashMap);
+        convoToRef.setValue(conversationToHashMap);*/
+
+        convoRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -96,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 GenericTypeIndicator<HashMap<String, Conversation>> typeIndicator = new GenericTypeIndicator<HashMap<String, Conversation>>() {};
                 conversations = dataSnapshot.getValue(typeIndicator);
                 if (conversations != null) {
-                    conversation = conversations.get("ayaan");
+                    conversation = conversations.get(currentContact);
                     messagesListAdapter.clear();
                     messagesListAdapter.addToEnd(conversation.getMessages(), true);
 
@@ -120,19 +137,34 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+                DatabaseReference profileReference = myRef.child(currentUser);
 
+                profileReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        GenericTypeIndicator<HashMap<String, User>> typeIndicator = new GenericTypeIndicator<HashMap<String, User>>() {};
 
-                Conversation conversation = new Conversation();
-                User userAreeba = new User("areeba", "Areeba Khan", "areebaAvatar");
-                Message message = new Message("123", "Hello there", userAyaan, Calendar.getInstance().getTime());
-                Message message2 = new Message("122", "Hello Ayaan", userAreeba, Calendar.getInstance().getTime());
+                        HashMap<String, User> userProfile = snapshot.getValue(typeIndicator);
 
+                        if (userProfile != null) {
+                            User user = userProfile.get("profile");
+                            Message message = new Message(currentUser, input.toString(), user, Calendar.getInstance().getTime());
+                            conversation.addMessage(message);
+                            HashMap<String, Conversation> conversationHashMap = new HashMap<>();
+                            HashMap<String, Conversation> conversationToHashMap = new HashMap<>();
+                            conversationHashMap.put(currentContact, conversation);
+                            conversationToHashMap.put(currentUser, conversation);
+                            convoRef.setValue(conversationHashMap);
+                            convoToRef.setValue(conversationToHashMap);
+                        }
+                    }
 
-                conversation.addMessage(message);
-                conversation.addMessage(message2);
-                HashMap<String, Conversation> conversationHashMap = new HashMap<>();
-                conversationHashMap.put("ayaan", conversation);
-                arAyConvoRef.setValue(conversationHashMap);
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
 
                 /*if (profiles == null) {
                     profiles = new HashMap<>();

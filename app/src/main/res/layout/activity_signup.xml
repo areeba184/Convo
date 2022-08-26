@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignupActivity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/signup_username"
+            android:hint="@string/enter_username" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/signup_full_name"
+            android:layout_below="@id/signup_username"
+            android:hint="@string/enter_full_name"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/signup_password"
+            android:layout_below="@id/signup_full_name"
+            android:layout_marginTop="10dp"
+            android:inputType="textPassword"
+            android:hint="@string/enter_password"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/signup_password_confirm"
+            android:layout_below="@id/signup_password"
+            android:layout_marginTop="10dp"
+            android:inputType="textPassword"
+            android:hint="@string/confirm_password"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/signup_button"
+            android:layout_below="@id/signup_password_confirm"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/signup"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

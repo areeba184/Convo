@@ -1,0 +1,7 @@
+fileignoreconfig:
+- filename: app/src/main/java/areeba/ayaan/convo/SignupActivity.java
+  checksum: 24331392444b1d555e4e576eba498c45a6193f7244245b90edb675d013cbaea5
+- filename: app/src/main/res/values/strings.xml
+  checksum: 2d4cd8fa9368ce6fe746e3a4ded1a2a4aead51d16fff8e5063749e3b474d7ae4
+- filename: app/src/main/java/areeba/ayaan/convo/LoginActivity.java
+  checksum: cc573ba784c184afab56ebde7ecfc04aac722b2c3d602417534bc1a7e982601e

@@ -19,7 +19,8 @@ public class Dialog implements IDialog {
         this.users = users;
     }
 
-    public Dialog(String dialogPhoto, String dialogName, List<User> users, Message lastMessage, int unreadCount) {
+    public Dialog(String id, String dialogPhoto, String dialogName, List<User> users, Message lastMessage, int unreadCount) {
+        this.id = id;
         this.dialogPhoto = dialogPhoto;
         this.dialogName = dialogName;
         this.users = users;
@@ -54,7 +55,7 @@ public class Dialog implements IDialog {
 
     @Override
     public void setLastMessage(IMessage message) {
-        this.lastMessage = lastMessage;
+        this.lastMessage = (Message) message;
     }
 
     @Override
