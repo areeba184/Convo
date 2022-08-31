@@ -6,12 +6,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.stfalcon.chatkit.commons.ImageLoader;
 import com.stfalcon.chatkit.messages.MessageInput;
 import com.stfalcon.chatkit.messages.MessagesList;
 import com.stfalcon.chatkit.messages.MessagesListAdapter;
@@ -53,12 +55,14 @@ public class MainActivity extends AppCompatActivity {
 
         currentUser = getIntent().getStringExtra("currentUser");
         currentContact = getIntent().getStringExtra("currentContact");
+        this.setTitle(currentContact);
 
         messages = new HashMap<>();
         profiles = new HashMap<>();
 
 
-        MessagesListAdapter messagesListAdapter = new MessagesListAdapter(currentUser, null);
+        ImageLoader imageLoader = (imageView, url, payload) -> Glide.with(MainActivity.this).load(url).into(imageView);
+        MessagesListAdapter messagesListAdapter = new MessagesListAdapter(currentUser, imageLoader);
         messagesList.setAdapter(messagesListAdapter);
 
         myRef = database.getReference("Users");
@@ -116,6 +120,9 @@ public class MainActivity extends AppCompatActivity {
                         if (userProfile != null) {
                             User user = userProfile.get("profile");
                             Message message = new Message(currentUser, input.toString(), user, Calendar.getInstance().getTime());
+                            if (conversation == null) {
+                                conversation = new Conversation();
+                            }
                             conversation.addMessage(message);
                             HashMap<String, Object> conversationHashMap = new HashMap<>();
                             HashMap<String, Object> conversationToHashMap = new HashMap<>();

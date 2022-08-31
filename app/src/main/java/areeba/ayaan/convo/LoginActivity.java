@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                         editUsername.setError("Enter Username");
                     }
                 }
-                else {
+                else if (logins != null){
                     if (!logins.containsKey(editUsername.getText().toString())) {
                         editUsername.setError("Username not found!");
                         Toast.makeText(getApplicationContext(), "Username not found!", Toast.LENGTH_SHORT).show();
@@ -80,6 +80,9 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     }
+                }
+                else if (logins == null) {
+                    Toast.makeText(LoginActivity.this, "No registered user with this Username!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

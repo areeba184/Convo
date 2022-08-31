@@ -1,14 +1,18 @@
 package areeba.ayaan.convo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
@@ -33,7 +37,8 @@ import areeba.ayaan.convo.models.Dialog;
 import areeba.ayaan.convo.models.Message;
 import areeba.ayaan.convo.models.User;
 
-public class ConversationListActivity extends AppCompatActivity implements DialogsListAdapter.OnDialogClickListener<Dialog>{
+public class ConversationListActivity extends AppCompatActivity
+        implements DialogsListAdapter.OnDialogClickListener<Dialog>{
 
     DialogsList dialogsList;
 
@@ -70,7 +75,9 @@ public class ConversationListActivity extends AppCompatActivity implements Dialo
                     linearLayout.setVisibility(View.GONE);
                 } else {
                     linearLayout.setVisibility(View.VISIBLE);
-                    editUserName.setActivated(true);
+                    editUserName.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(editUserName, InputMethodManager.SHOW_IMPLICIT);
                 }
             }
         });
@@ -110,8 +117,6 @@ public class ConversationListActivity extends AppCompatActivity implements Dialo
         });
 
         imageLoader = (imageView, url, payload) -> Glide.with(ConversationListActivity.this).load(url).into(imageView);
-
-
 
          dialogsListAdapter= new DialogsListAdapter<>(imageLoader);
          dialogsListAdapter.setOnDialogClickListener(this);

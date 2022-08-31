@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="dialog_choose_icon_color">@color/grey_600</color>
+    <color name="dialog_choose_text_color">@color/grey_600</color>
+    <color name="grey_600">#757575</color>
+    <color name="grey_50">#FAFAFA</color>
+    <color name="grey_700">#616161</color>
 </resources>
